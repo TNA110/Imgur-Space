@@ -13,9 +13,6 @@ import argparse
 def upload_image(client, filepath):
     print(f"Загружаю {filepath}... ")
     client.upload_from_path(filepath, anon=False)
-    print("Загрузка завершена")
-    print()
-
 
 def format_image(filename):
     image = Image.open(filename)
@@ -32,6 +29,7 @@ def create_parser():
     parser.add_argument("flight_number", nargs="?", help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", default =13)
     args = parser.parse_args()
     return args.download_path, args.collection_name, args.flight_number
+
 
 def main():
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
