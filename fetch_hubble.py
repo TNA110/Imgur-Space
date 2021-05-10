@@ -7,7 +7,7 @@ def fetch_hubble_image(collection_name, download_path):
     response.raise_for_status()
     collection = response.json()
     for image_number, image in enumerate(collection[:3]):
-        image_id = image.get('id')
+        image_id = image.get("id")
         response = requests.get(f"http://hubblesite.org/api/v3/image/{image_id}", verify=False)
         response.raise_for_status()
         image_params = response.json()

@@ -30,8 +30,8 @@ def main():
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     parser = argparse.ArgumentParser()
     parser.add_argument("download_path", nargs="?", help="В какую папку будем сохранять изображения?", default ="images")
-    parser.add_argument('collection_name', nargs="?", help="Введите название коллекции, которой вы хотите поделиться", default ="news")
-    parser.add_argument('flight_number', nargs="?", help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", default =13)
+    parser.add_argument("collection_name", nargs="?", help="Введите название коллекции, которой вы хотите поделиться", default ="news")
+    parser.add_argument("flight_number", nargs="?", help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", default =13)
     args = parser.parse_args()
     os.makedirs(args.download_path, exist_ok=True)
     fetch_spacex.fetch_spacex_launch(args.flight_number, args.download_path)
@@ -41,13 +41,13 @@ def main():
         format_image(filepath)
     load_dotenv()
     client_id = os.environ["CLIENT_ID"]
-    client_secret = os.environ['CLIENT_SECRET']
+    client_secret = os.environ["CLIENT_SECRET"]
     client = ImgurClient(client_id, client_secret)
-    authorization_url = client.get_auth_url('pin')
+    authorization_url = client.get_auth_url("pin")
     print("Пройдите по ссылке чтобы получить пин-код: {0}".format(authorization_url))
     pin = input("Введите пин-код: ")
-    credentials = client.authorize(pin, 'pin')
-    client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
+    credentials = client.authorize(pin, "pin")
+    client.set_user_auth(credentials["access_token"], credentials["refresh_token"])
     for filename in (os.listdir(args.download_path)):
         filepath = f"{args.download_path}/{filename}"
         upload_image(client, filepath)
