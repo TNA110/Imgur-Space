@@ -48,7 +48,7 @@ def main():
     pin = input("Введите пин-код: ")
     credentials = client.authorize(pin, "pin")
     client.set_user_auth(credentials["access_token"], credentials["refresh_token"])
-    for filename in (os.listdir(args.download_path)):
+    for filename in os.listdir(args.download_path):
         filepath = f"{args.download_path}/{filename}"
         upload_image(client, filepath)
 
