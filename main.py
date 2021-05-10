@@ -14,6 +14,17 @@ def upload_image(client, filepath):
     print(f"Загружаю {filepath}... ")
     client.upload_from_path(filepath, anon=False)
 
+
+def authenticate(client_id, client_secret):
+	client = ImgurClient(client_id, client_secret)
+	authorization_url = client.get_auth_url('pin')
+	print("Пройдите по ссылке чтобы получить пин-код: {0}".format(authorization_url))
+	pin = input("Введите пин-код: ")
+	credentials = client.authorize(pin, 'pin')
+	client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
+	return client
+
+
 def format_image(filename):
     image = Image.open(filename)
     image.thumbnail((1080, 1080))
@@ -43,12 +54,7 @@ def main():
     load_dotenv()
     client_id = os.environ["CLIENT_ID"]
     client_secret = os.environ["CLIENT_SECRET"]
-    client = ImgurClient(client_id, client_secret)
-    authorization_url = client.get_auth_url("pin")
-    print("Пройдите по ссылке чтобы получить пин-код: {0}".format(authorization_url))
-    pin = input("Введите пин-код: ")
-    credentials = client.authorize(pin, "pin")
-    client.set_user_auth(credentials["access_token"], credentials["refresh_token"])
+    client = authenticate(client_id, client_secret)
     for filename in os.listdir(download_path):
         filepath = f"{download_path}/{filename}"
         upload_image(client, filepath)
