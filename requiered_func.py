@@ -6,6 +6,7 @@ import requests
 def download_image(url, filename, download_path):
     filename = f"{download_path}/{filename}"
     response = requests.get(url, verify = False)
+    response.raise_for_status()
     with open(filename, "wb") as image:
         image.write(response.content)
 
