@@ -1,4 +1,4 @@
-import requests
+import requiered_func
 from urllib.parse import urlsplit
 import os
 import urllib3
@@ -16,27 +16,13 @@ def upload_image(client, filepath):
     print("Загрузка завершена")
     print()
 
-def download_image(url, filename, download_path):
-    filename = f"{download_path}/{filename}"
-    response = requests.get(url, verify = False)
-    with open(filename, "wb") as image:
-        image.write(response.content)
-
-
-def get_extension(url):
-    splited_url = urlsplit(url)
-    filepath = splited_url[2]
-    filename = os.path.split(filepath)[1]
-    file_extension = os.path.splitext(filename)[1]
-    return file_extension
-
 
 def format_image(filename):
     image = Image.open(filename)
     image.thumbnail((1080, 1080))
-    if not get_extension(filename) == "jpg":
+    if not requiered_func.get_extension(filename) == "jpg":
         os.remove(filename)
-        filename = filename.replace(get_extension(filename), ".jpg")
+        filename = filename.replace(requiered_func.get_extension(filename), ".jpg")
     image.save(filename, format = "JPEG")
     
 
