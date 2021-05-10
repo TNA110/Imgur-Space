@@ -34,13 +34,26 @@ def format_image(filename):
     if not requiered_func.get_extension(filename) == "jpg":
         os.remove(filename)
         filename = filename.replace(requiered_func.get_extension(filename), ".jpg")
-    image.save(filename, format = "JPEG")
+    image.save(filename, format="JPEG")
     
 def create_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("download_path", nargs="?", help="В какую папку будем сохранять изображения?", default ="images")
-    parser.add_argument("collection_name", nargs="?", help="Введите название коллекции, которой вы хотите поделиться", default ="news")
-    parser.add_argument("flight_number", nargs="?", help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", default =13)
+    parser.add_argument(
+        "download_path", nargs="?",
+        help="В какую папку будем сохранять изображения?", 
+        default ="images"
+    )
+    parser.add_argument(
+        "collection_name", nargs="?", 
+        help="Введите название коллекции, которой вы хотите поделиться", 
+        default ="news"
+    )
+    parser.add_argument(
+        "flight_number",
+         nargs="?",
+        help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", 
+        default =13
+    )
     args = parser.parse_args()
     return args.download_path, args.collection_name, args.flight_number
 

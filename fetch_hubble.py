@@ -13,7 +13,7 @@ def fetch_hubble_image(collection_name, download_path):
         image_params = response.json()
         image_files = image_params.get("image_files")
         image_file = image_files[-1]
-        image_url = " %s%s" % ("http:",image_file["file_url"])
+        image_url = " %s%s" % ("http:", image_file["file_url"])
         image_extension = requiered_func.get_extension(image_url)
         filename = f"{image_number}{image_id}{image_extension}"
         requiered_func.download_image(image_url, filename, download_path)
