@@ -25,19 +25,22 @@ def format_image(filename):
         filename = filename.replace(requiered_func.get_extension(filename), ".jpg")
     image.save(filename, format = "JPEG")
     
-
-def main():
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("download_path", nargs="?", help="В какую папку будем сохранять изображения?", default ="images")
     parser.add_argument("collection_name", nargs="?", help="Введите название коллекции, которой вы хотите поделиться", default ="news")
     parser.add_argument("flight_number", nargs="?", help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", default =13)
     args = parser.parse_args()
-    os.makedirs(args.download_path, exist_ok=True)
-    fetch_spacex.fetch_spacex_launch(args.flight_number, args.download_path)
-    fetch_hubble.fetch_hubble_image(args.collection_name,args.download_path)
-    for filename in os.listdir(args.download_path):
-        filepath = f"{args.download_path}/{filename}"
+    return args.download_path, args.collection_name, args.flight_number
+
+def main():
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    download_path, collection_name, flight_number = create_parser()
+    os.makedirs(download_path, exist_ok=True)
+    fetch_spacex.fetch_spacex_launch(flight_number, download_path)
+    fetch_hubble.fetch_hubble_image(collection_name,download_path)
+    for filename in os.listdir(download_path):
+        filepath = f"{download_path}/{filename}"
         format_image(filepath)
     load_dotenv()
     client_id = os.environ["CLIENT_ID"]
@@ -48,8 +51,8 @@ def main():
     pin = input("Введите пин-код: ")
     credentials = client.authorize(pin, "pin")
     client.set_user_auth(credentials["access_token"], credentials["refresh_token"])
-    for filename in os.listdir(args.download_path):
-        filepath = f"{args.download_path}/{filename}"
+    for filename in os.listdir(download_path):
+        filepath = f"{download_path}/{filename}"
         upload_image(client, filepath)
 
 if __name__==("__main__"):
