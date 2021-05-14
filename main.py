@@ -16,7 +16,6 @@ posting_image_size = (1080,1080)
 
 
 def upload_image(client, filepath):
-    print(f"Загружаю {filepath}... ")
     client.upload_from_path(filepath, anon=False)
 
 
