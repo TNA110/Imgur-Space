@@ -21,13 +21,13 @@ def upload_image(client, filepath):
 
 
 def authenticate(client_id, client_secret):
-	client = ImgurClient(client_id, client_secret)
-	authorization_url = client.get_auth_url('pin')
-	print("Пройдите по ссылке чтобы получить пин-код: {0}".format(authorization_url))
-	pin = input("Введите пин-код: ")
-	credentials = client.authorize(pin, 'pin')
-	client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
-	return client
+    client = ImgurClient(client_id, client_secret)
+    authorization_url = client.get_auth_url('pin')
+    print("Пройдите по ссылке чтобы получить пин-код: {0}".format(authorization_url))
+    pin = input("Введите пин-код: ")
+    credentials = client.authorize(pin, 'pin')
+    client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
+    return client
 
 
 def format_image(filename):
