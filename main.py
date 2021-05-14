@@ -56,13 +56,15 @@ def create_parser():
         help="Введите номер пуска, фотографиями которого вы хотите поделиться: ", 
         default =13
     )
-    args = parser.parse_args()
-    return args.download_path, args.collection_name, args.flight_number
+    
+    return parser
 
-
+#rgs.download_path, args.collection_name, args.flight_number
 def main():
+    parser = create_parser()
+    args = parser.parse_args()
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    download_path, collection_name, flight_number = create_parser()
+    download_path, collection_name, flight_number = args.download_path, args.collection_name, args.flight_number
     os.makedirs(download_path, exist_ok=True)
     fetch_spacex.fetch_spacex_launch(flight_number, download_path)
     fetch_hubble.fetch_hubble_image(collection_name,download_path)
