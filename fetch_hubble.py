@@ -2,7 +2,7 @@ import requests
 import requiered_func
 
 
-def fetch_hubble_image(collection_name, download_path):
+def fetch_hubble_images(collection_name, download_path):
     response = requests.get(f"http://hubblesite.org/api/v3/images/{collection_name}")
     response.raise_for_status()
     collection = response.json()
