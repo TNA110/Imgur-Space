@@ -1,13 +1,15 @@
-import requiered_func
-from urllib.parse import urlsplit
+
 import os
 import urllib3
+import argparse
+
 from PIL import Image
 from imgurpython import ImgurClient
 from dotenv import load_dotenv
+
+import requiered_func
 import fetch_spacex 
 import fetch_hubble 
-import argparse
 
 
 posting_image_size = (1080,1080)
