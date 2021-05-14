@@ -12,9 +12,6 @@ import fetch_spacex
 import fetch_hubble 
 
 
-POSTING_IMAGE_SIZE = (1080, 1080)
-
-
 def upload_image(client, filepath):
     client.upload_from_path(filepath, anon=False)
 
@@ -31,7 +28,8 @@ def authenticate(client_id, client_secret):
 
 def format_image(filename):
     image = Image.open(filename)
-    image.thumbnail(POSTING_IMAGE_SIZE)
+    posting_image_size = (1080, 1080)
+    image.thumbnail(posting_image_size)
     if not requiered_func.get_extension(filename) == "jpg":
         os.remove(filename)
         filename = filename.replace(requiered_func.get_extension(filename), ".jpg")
