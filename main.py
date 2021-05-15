@@ -12,10 +12,6 @@ import fetch_spacex
 import fetch_hubble 
 
 
-def upload_image(client, filepath):
-    client.upload_from_path(filepath, anon=False)
-
-
 def authenticate(client_id, client_secret):
     client = ImgurClient(client_id, client_secret)
     authorization_url = client.get_auth_url('pin')
@@ -75,7 +71,7 @@ def main():
     client = authenticate(client_id, client_secret)
     for filename in os.listdir(download_path):
         filepath = f"{download_path}/{filename}"
-        upload_image(client, filepath)
+        client.upload_from_path(filepath, anon=False)
 
 
 if __name__==("__main__"):
