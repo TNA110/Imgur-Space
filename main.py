@@ -7,7 +7,7 @@ from PIL import Image
 from imgurpython import ImgurClient
 from dotenv import load_dotenv
 
-import requiered_func
+import work_with_files
 import fetch_spacex 
 import fetch_hubble 
 
@@ -30,9 +30,9 @@ def format_image(filename):
     image = Image.open(filename)
     posting_image_size = (1080, 1080)
     image.thumbnail(posting_image_size)
-    if not requiered_func.get_extension(filename) == "jpg":
+    if not work_with_files.get_extension(filename) == "jpg":
         os.remove(filename)
-        filename = filename.replace(requiered_func.get_extension(filename), ".jpg")
+        filename = filename.replace(work_with_files.get_extension(filename), ".jpg")
     image.save(filename, format="JPEG")
     
 
