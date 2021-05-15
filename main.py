@@ -74,5 +74,5 @@ def main():
         client.upload_from_path(filepath, anon=False)
 
 
-if __name__==("__main__"):
+if __name__ == ("__main__"):
     main()
